@@ -72,7 +72,7 @@ def server_socket():
     sock.bind(("127.0.0.1", 10083))
     sock.listen(5)
     conn, addr = sock.accept()
-    print(sock.accept())
+    # print(sock.accept())
     print(conn)
     data = conn.recv(8096)
     headers = get_headers(data)
@@ -96,7 +96,12 @@ def server_socket():
         data_1 = conn.recv(8096)
         data_2 = parse_payload(data_1)
         print(data_2)
-        send_msg(conn, b"test")
+        if data_2 == 'close':
+            conn.close()
+            sock.close()
+            server_socket()
+        else:
+            send_msg(conn, b"test")
 
 
 if __name__ == "__main__":

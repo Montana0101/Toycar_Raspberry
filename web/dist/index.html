@@ -44,14 +44,17 @@
 <input type="text" placeholder="请输入发送的消息" class="message" id="message">
 <input type="button" value="发送" id="send" class="connect">
 <input type="button" value="连接" id="connect" class="connect">
+<input type="button" value="关闭" id="close" class="connect">
 </form>
 <script>var oUl = document.getElementById('content');
 var oConnect = document.getElementById('connect');
 var oSend = document.getElementById('send');
 var oInput = document.getElementById('message');
+var oClose = document.getElementById('close');
 var ws = null;
 
 oConnect.onclick = function () {
+  alert('出发了');
   ws = new WebSocket('ws://127.0.0.1:10083');
 
   ws.onopen = function () {
@@ -75,6 +78,12 @@ oConnect.onclick = function () {
 oSend.onclick = function () {
   if (ws) {
     ws.send($("#message").val());
+  }
+};
+
+oClose.onclick = function () {
+  if (ws) {
+    ws.close();
   }
 };</script>
 </body>
